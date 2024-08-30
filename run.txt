@@ -1,0 +1,19 @@
+vlib work
+vlog -f sourcefile.txt
+vsim -voptargs=+accs work.CRC_tb
+add wave *
+add wave -position insertpoint  \
+sim:/CRC_tb/DUT/DATA \
+sim:/CRC_tb/DUT/CLK \
+sim:/CRC_tb/DUT/RST \
+sim:/CRC_tb/DUT/ACTIVE \
+sim:/CRC_tb/DUT/CRC \
+sim:/CRC_tb/DUT/Valid \
+sim:/CRC_tb/DUT/LFSR \
+sim:/CRC_tb/DUT/Feedback \
+sim:/CRC_tb/DUT/count
+add wave -position insertpoint  \
+sim:/CRC_tb/Expec_Outs
+add wave -position insertpoint  \
+sim:/CRC_tb/check_out/gener_out
+run -all
