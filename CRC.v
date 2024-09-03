@@ -7,10 +7,10 @@ module CRC #( parameter Seed) (
 	output reg  		Valid
 	);
 
-reg[7:0] LFSR;
+reg [7:0] LFSR;
 
 wire Feedback;
-reg count;
+reg [3:0] count;
 assign Feedback = LFSR[0] ^ DATA;
 
 always@(posedge CLK or negedge RST)
@@ -37,7 +37,7 @@ begin
 		end
 	else
 	    begin
-	    	if (count <= 8) begin
+	    	if (count < 8) begin
 				{LFSR[6:0],CRC} <= LFSR ;
 				Valid <= 1'b1;
 				CRC <= LFSR[0];
@@ -48,7 +48,7 @@ begin
 				LFSR[4] <= LFSR[5];
 				LFSR[5] <= LFSR[6];
 				LFSR[6] <= LFSR[7];
-				count = count + 1;
+				count <= count + 1;
 			end
 			else begin
 				Valid <= 0;
